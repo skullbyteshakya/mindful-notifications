@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import ttk
-from plyer import notification
 from ctypes import windll
 import sched
 import time
@@ -46,17 +45,44 @@ class TaskReminderApp:
         self.stop_button = ttk.Button(self.root, text="Stop", command=self.stop_notifications, state=tk.DISABLED)
         self.stop_button.pack(pady=5)
 
-    def show_notification(self, message):
-        notification.notify(
-            title='Task Reminder',
-            message=message,
-            app_name='Task Reminder',
-            timeout=10  # Notification will disappear after 10 seconds
-        )
+    def show_popup_notification(self, message):
+        popup = tk.Toplevel(self.root)
+        popup.title("Task Reminder")
+        popup.minsize(300, 120)
+        popup.configure(bg="#2e2e2e")
+        popup.attributes('-topmost', True)
+
+        style = ttk.Style()
+        style.theme_use("clam")
+        style.configure("TLabel", background="#2e2e2e", foreground="white", font=("Helvetica", 12))
+        style.configure("TButton", background="#4d4d4d", foreground="white", font=("Helvetica", 12), padding=6)
+
+        content_frame = tk.Frame(popup, bg="#2e2e2e", padx=20, pady=10)
+        content_frame.pack(expand=True, fill='both')
+
+        message_label = ttk.Label(content_frame, text=message, wraplength=260)
+        message_label.pack(expand=True, fill='both')
+
+        dismiss_button = ttk.Button(content_frame, text="Dismiss", command=popup.destroy)
+        dismiss_button.pack(pady=(10, 5))
+
+        # Adjust window size based on content
+        popup.update()
+
+        # Calculate position for center of screen
+        screen_width = popup.winfo_screenwidth()
+        screen_height = popup.winfo_screenheight()
+        window_width = popup.winfo_width()
+        window_height = popup.winfo_height()
+        x_coordinate = int((screen_width / 2) - (window_width / 2))
+        y_coordinate = int((screen_height / 2) - (window_height / 2))
+
+        # Set the position
+        popup.geometry(f"{window_width}x{window_height}+{x_coordinate}+{y_coordinate}")
 
     def schedule_notifications(self, interval, message):
         while self.running:
-            self.show_notification(message)
+            self.show_popup_notification(message)
             time.sleep(interval)
 
     def start_notifications(self):
