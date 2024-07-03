@@ -5,11 +5,12 @@ import sched
 import time
 import threading
 
+
 class TaskReminderApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Task Reminder")
-        self.root.geometry("400x250")
+        self.root.geometry("400x280")  # main window size parameters
         self.root.configure(bg="#2e2e2e")
 
         self.scheduler = sched.scheduler(time.time, time.sleep)
@@ -23,20 +24,20 @@ class TaskReminderApp:
     def create_widgets(self):
         style = ttk.Style()
         style.theme_use("clam")
-        style.configure("TLabel", background="#2e2e2e", foreground="white", font=("Helvetica", 12))
-        style.configure("TButton", background="#4d4d4d", foreground="white", font=("Helvetica", 12), padding=6)
-        style.configure("TEntry", fieldbackground="#4d4d4d", foreground="white", font=("Helvetica", 12))
+        style.configure("TLabel", background="#2e2e2e", foreground="white", font=("Helvetica", 14))
+        style.configure("TButton", background="#4d4d4d", foreground="white", font=("Helvetica", 14), padding=6)
+        style.configure("TEntry", fieldbackground="#4d4d4d", foreground="white", font=("Helvetica", 14))
 
         self.interval_label = ttk.Label(self.root, text="Time Interval (seconds):")
         self.interval_label.pack(pady=(20, 5))
 
-        self.interval_entry = ttk.Entry(self.root, font=("Helvetica", 12))
+        self.interval_entry = ttk.Entry(self.root, font=("Helvetica", 14))
         self.interval_entry.pack(pady=5)
 
         self.message_label = ttk.Label(self.root, text="Notification Message:")
         self.message_label.pack(pady=5)
 
-        self.message_entry = ttk.Entry(self.root, font=("Helvetica", 12))
+        self.message_entry = ttk.Entry(self.root, font=("Helvetica", 14))
         self.message_entry.pack(pady=5)
 
         self.start_button = ttk.Button(self.root, text="Start", command=self.start_notifications)
@@ -54,8 +55,8 @@ class TaskReminderApp:
 
         style = ttk.Style()
         style.theme_use("clam")
-        style.configure("TLabel", background="#2e2e2e", foreground="white", font=("Helvetica", 12))
-        style.configure("TButton", background="#4d4d4d", foreground="white", font=("Helvetica", 12), padding=6)
+        style.configure("TLabel", background="#2e2e2e", foreground="white", font=("Helvetica", 14))
+        style.configure("TButton", background="#4d4d4d", foreground="white", font=("Helvetica", 14), padding=6)
 
         content_frame = tk.Frame(popup, bg="#2e2e2e", padx=20, pady=10)
         content_frame.pack(expand=True, fill='both')
@@ -104,6 +105,7 @@ class TaskReminderApp:
     def on_closing(self):
         self.stop_notifications()
         self.root.destroy()
+
 
 if __name__ == "__main__":
     root = tk.Tk()
