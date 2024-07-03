@@ -2,4 +2,4 @@
 
 ### Screenshots
 
-![img.png](docs%2Fimg.png)
+![img.png](docs%2Fmain_app.png)
