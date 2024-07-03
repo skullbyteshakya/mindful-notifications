@@ -1,0 +1,8 @@
+Sign an executable:
+
+https://stackoverflow.com/questions/252226/signing-a-windows-exe-file
+
+PS D:\CODE\projects\mindful\mindful-notifications\dist> signtool.exe sign /a /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 .\TaskReminder.exe
+Done Adding Additional Store
+Successfully signed: .\TaskReminder.exe
+PS D:\CODE\projects\mindful\mindful-notifications\dist>
