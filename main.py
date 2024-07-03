@@ -28,7 +28,7 @@ class TaskReminderApp:
         style.configure("TButton", background="#4d4d4d", foreground="white", font=("Helvetica", 14), padding=6)
         style.configure("TEntry", fieldbackground="#4d4d4d", foreground="white", font=("Helvetica", 14))
 
-        self.interval_label = ttk.Label(self.root, text="Time Interval (seconds):")
+        self.interval_label = ttk.Label(self.root, text="Time Interval (minutes):")
         self.interval_label.pack(pady=(20, 5))
 
         self.interval_entry = ttk.Entry(self.root, font=("Helvetica", 14))
@@ -89,7 +89,7 @@ class TaskReminderApp:
         self.task_handle = self.root.after(int(interval * 1000), self.schedule_notifications, interval, message)
 
     def start_notifications(self):
-        interval = int(self.interval_entry.get())
+        interval = int(self.interval_entry.get())*60
         message = self.message_entry.get()
         self.start_button.config(state=tk.DISABLED)
         self.stop_button.config(state=tk.NORMAL)
