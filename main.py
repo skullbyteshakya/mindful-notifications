@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from plyer import notification
+from ctypes import windll
 import sched
 import time
 import threading
@@ -80,5 +81,6 @@ class TaskReminderApp:
 
 if __name__ == "__main__":
     root = tk.Tk()
+    windll.shcore.SetProcessDpiAwareness(1)
     app = TaskReminderApp(root)
     root.mainloop()
