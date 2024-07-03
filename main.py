@@ -82,9 +82,11 @@ class TaskReminderApp:
         popup.geometry(f"{window_width}x{window_height}+{x_coordinate}+{y_coordinate}")
 
     def schedule_notifications(self, interval, message):
-        while self.running:
-            self.show_popup_notification(message)
-            time.sleep(interval)
+        if not self.running:
+            return  # Exit if stopped before scheduling
+
+        self.show_popup_notification(message)
+        self.task_handle = self.root.after(int(interval * 1000), self.schedule_notifications, interval, message)
 
     def start_notifications(self):
         interval = int(self.interval_entry.get())
@@ -99,6 +101,9 @@ class TaskReminderApp:
         self.running = False
         if self.thread:
             self.thread.join()
+        # Cancel the scheduled task using the handle
+        if self.task_handle:
+            self.root.after_cancel(self.task_handle)
         self.start_button.config(state=tk.NORMAL)
         self.stop_button.config(state=tk.DISABLED)
 
